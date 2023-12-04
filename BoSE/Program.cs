@@ -4,6 +4,7 @@ class Program
 {
     public static void Main(string[] args)
     {
-        new Client().Main();
+        new ClientFactory().Main();
+        new ClientAbstractFactory().Main();
     }
 }
