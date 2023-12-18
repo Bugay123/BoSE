@@ -1,13 +1,9 @@
 namespace BoSE.patterens;
 
-public class Factory
-{
-}
-
 // The Creator class declares the factory method that is supposed to return
 // an object of a Product class. The Creator's subclasses usually provide
 // the implementation of this method.
-abstract class Creator
+abstract class Factory
 {
     // Note that the Creator may also provide some default implementation of
     // the factory method.
@@ -33,7 +29,7 @@ abstract class Creator
 
 // Concrete Creators override the factory method in order to change the
 // resulting product's type.
-class ConcreteCreator1 : Creator
+class ConcreteCreator1 : Factory
 {
     // Note that the signature of the method still uses the abstract product
     // type, even though the concrete product is actually returned from the
@@ -45,7 +41,7 @@ class ConcreteCreator1 : Creator
     }
 }
 
-class ConcreteCreator2 : Creator
+class ConcreteCreator2 : Factory
 {
     public override IProduct FactoryMethod()
     {
@@ -95,11 +91,11 @@ class ClientFactory
     // through its base interface. As long as the client keeps working with
     // the creator via the base interface, you can pass it any creator's
     // subclass.
-    public void ClientCode(Creator creator)
+    public void ClientCode(Factory factory)
     {
         // ...
         Console.WriteLine("Client: I'm not aware of the creator's class," +
-                          "but it still works.\n" + creator.SomeOperation());
+                          "but it still works.\n" + factory.SomeOperation());
         // ...
     }
 }
