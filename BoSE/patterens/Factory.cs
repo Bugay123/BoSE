@@ -1,6 +1,6 @@
 namespace BoSE.patterens;
 
-public class factory
+public class Factory
 {
 }
 
@@ -78,7 +78,7 @@ class ConcreteProduct2 : IProduct
     }
 }
 
-class Client
+class ClientFactory
 {
     public void Main()
     {
