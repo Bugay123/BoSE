@@ -43,6 +43,12 @@ class Program
         ComplicatedObject clone = (ComplicatedObject)prototype.Copy();
         clone.SetType(ComplicatedObject.Type.ONE);
         
+        //Adapter
+        Console.WriteLine("\nAdapter");
+        PBank pbank = new PBank();
+        pbank.GetBalance();
+        PBankAdapter abank = new PBankAdapter(new ABank());
+        abank.GetBalance();
         
       }
   }
