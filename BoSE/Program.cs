@@ -1,53 +1,54 @@
 ﻿using BoSE.patterens;
 
 class Program
-{
+  {
     public static void Main(string[] args)
-    {
+      {
         //Factory
         Console.WriteLine("Factory pattern");
-        new ClientFactory().Main();
-        
+        Factory factory = new Factory();
+        OS os = factory.GetCurrentOS("linux");
+        os.GetOS();
+
         //AbstractFactory
         Console.WriteLine("\nAbstractFactory pattern");
-        new ClientAbstractFactory().Main();
-        
+        string country = "UA";
+        ICarPriceAbstractFactory factoryTest = null;
+
+        if (country.Equals("UA"))
+          {
+            factoryTest = new UaCarPriceAbstractFactory();
+          }
+        else if (country.Equals("EU"))
+          {
+            factoryTest = new EuCarPriceAbstractFactory();
+          }
+
+        IZaz zaz = factoryTest.GetZaz();
+        Console.WriteLine(zaz.GetZazPrice());
+
         //Builder
-        // The client code creates a builder object, passes it to the
-        // director and then initiates the construction process. The end
-        // result is retrieved from the builder object.
         Console.WriteLine("\nBuilder pattern");
-        var director = new Director();
-        var builder = new ConcreteBuilder();
-        director.Builder = builder;
+        Build build = new Build(1);
+        build.BuildCar();
 
-        Console.WriteLine("Standard basic product:");
-        director.BuildMinimalViableProduct();
-        Console.WriteLine(builder.GetProduct().ListParts());
-
-        Console.WriteLine("Standard full featured product:");
-        director.BuildFullFeaturedProduct();
-        Console.WriteLine(builder.GetProduct().ListParts());
-
-        // Remember, the Builder pattern can be used without a Director class.
-        Console.WriteLine("Custom product:");
-        builder.BuildPartA();
-        builder.BuildPartC();
-        Console.Write(builder.GetProduct().ListParts());
-        
-        
         //Singletone
         Console.WriteLine("\nSingletone");
-        Singleton s1 = Singleton.GetInstance();
-        Singleton s2 = Singleton.GetInstance();
-
-        if (s1 == s2)
-        {
-            Console.WriteLine("Singleton works, both variables contain the same instance.");
-        }
-        else
-        {
-            Console.WriteLine("Singleton failed, variables contain different instances.");
-        }
-    }
-}
+        Singleton s1 = Singleton.Instance;
+        s1.SetUp();
+        
+        //Prototype
+        Console.WriteLine("\nPrototype");
+        ComplicatedObject prototype = new ComplicatedObject();
+        ComplicatedObject clone = (ComplicatedObject)prototype.Copy();
+        clone.SetType(ComplicatedObject.Type.ONE);
+        
+        //Adapter
+        Console.WriteLine("\nAdapter");
+        PBank pbank = new PBank();
+        pbank.GetBalance();
+        PBankAdapter abank = new PBankAdapter(new ABank());
+        abank.GetBalance();
+        
+      }
+  }
